@@ -11,20 +11,19 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, char	**line)
 {
-	char		*line;
 	static char	*fd_read;
 
 	if (ft_check_bad_parameters(fd, fd_read))
-		return (0);
-	if (!ft_strchr(fd_read, '\n'))
+		return (NULL);
+	if (!ft_get_strchr(fd_read, '\n'))
 		fd_read = ft_readfd(fd, fd_read);
 	if (!fd_read)
 		return (NULL);
-	line = ft_extract_line(fd_read);
+	*line = ft_extract_line(fd_read);
 	fd_read = ft_delete_line(fd_read);
-	return (line);
+	return (*line);
 }
 
 char	*ft_extract_line(char *fd_read)
@@ -69,7 +68,7 @@ char	*ft_delete_line(char *fd_read)
 		free(fd_read);
 		return (NULL);
 	}
-	new_fd_read = (char *)malloc(sizeof(char) * (ft_strlen(fd_read) - i + 1));
+	new_fd_read = (char *)malloc(sizeof(char) * (ft_get_strlen(fd_read) - i + 1));
 	if (!new_fd_read)
 		return (NULL);
 	i++;
@@ -90,7 +89,7 @@ char	*ft_readfd(int fd, char *fd_read)
 	if (!buffer)
 		return (NULL);
 	buffer_len = 1;
-	while (!ft_strchr(fd_read, '\n') && buffer_len != 0)
+	while (!ft_get_strchr(fd_read, '\n') && buffer_len != 0)
 	{
 		buffer_len = read(fd, buffer, BUFFER_SIZE);
 		if (buffer_len == -1)
@@ -99,7 +98,7 @@ char	*ft_readfd(int fd, char *fd_read)
 			return (NULL);
 		}
 		buffer[buffer_len] = '\0';
-		fd_read = ft_strjoin(fd_read, buffer);
+		fd_read = ft_get_strjoin(fd_read, buffer);
 	}
 	free(buffer);
 	return (fd_read);

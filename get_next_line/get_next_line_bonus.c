@@ -104,7 +104,7 @@ char	*ft_readfd(int fd, char *fd_read)
 			return (NULL);
 		}
 		buffer[buffer_len] = '\0';
-		fd_read = ft_strjoin(fd_read, buffer);
+		fd_read = ft_get_strjoin(fd_read, buffer);
 	}
 	free(buffer);
 	return (fd_read);

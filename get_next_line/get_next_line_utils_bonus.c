@@ -40,7 +40,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_get_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
